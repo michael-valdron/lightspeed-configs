@@ -1,0 +1,48 @@
+#
+#
+# Copyright Red Hat
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+services:
+  llama-stack:
+    image: registry.redhat.io/rhoai/odh-llama-stack-core-rhel9:v3.3
+    ports:
+      - "8321:8321"
+    env_file:
+      - ../env/values.env
+    environment:
+      RUN_CONFIG_PATH: /app-root/run-no-guard.yaml
+    volumes:
+      - ../llama-stack-configs/run.yaml:/app-root/run.yaml:ro
+      - ../llama-stack-configs/run-no-guard.yaml:/app-root/run-no-guard.yaml:ro
+      - ../rag-content:/rag-content
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "curl -fsS http://127.0.0.1:8321/v1/health | grep -q '\"status\":\"OK\"'",
+        ]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+      start_period: 20s
+
+  lightspeed-core:
+    image: quay.io/lightspeed-core/lightspeed-stack:dev-20260226-ca21850
+    depends_on:
+      llama-stack:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./lightspeed-stack.compose.yaml:/app-root/lightspeed-stack.yaml:ro
