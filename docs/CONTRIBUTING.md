@@ -34,6 +34,11 @@ make local-up
 
 This starts Llama Stack, Lightspeed Core, and Ollama (for Llama Guard). Compose enforces startup order: Ollama healthy -> Llama Stack healthy -> Lightspeed Core starts.
 
+Lightspeed Core uses two mounted config files in local compose:
+
+- `compose/lightspeed-stack.compose.yaml` -> `/app-root/lightspeed-stack.yaml`
+- `lightspeed-core-configs/rhdh-profile.py` -> `/app-root/rhdh-profile.py`
+
 To run without safety guards:
 
 ```sh
@@ -153,6 +158,10 @@ After updating `lightspeed-core-configs/lightspeed-stack.yaml`:
 ```sh
 make sync-compose-config
 ```
+
+`make sync-compose-config` only regenerates `compose/lightspeed-stack.compose.yaml`. It does not manage compose volume mounts in `compose/compose.yaml`.
+
+`lightspeed-core-configs/rhdh-profile.py` is maintained directly in this repository (not synced from upstream). Keep `customization.profile_path` in `lightspeed-core-configs/lightspeed-stack.yaml` aligned with the mount path configured in `compose/compose.yaml` (`/app-root/rhdh-profile.py`).
 
 ## Formatting and Validating YAML
 

@@ -45,6 +45,7 @@ services:
       - "8080:8080"
     volumes:
       - ./lightspeed-stack.compose.yaml:/app-root/lightspeed-stack.yaml:ro
+      - ../lightspeed-core-configs/rhdh-profile.py:/app-root/rhdh-profile.py:ro
     healthcheck:
       test:
         [
