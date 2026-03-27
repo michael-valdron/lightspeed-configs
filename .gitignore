@@ -13,3 +13,5 @@ node_modules
 
 # Generated GitOps manifests (created by scripts/generate-gitops-manifests.sh)
 generated/
+
+.qodo
