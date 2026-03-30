@@ -19,10 +19,10 @@ services:
     ports:
       - "8080:8080"
     volumes:
-      - ../lightspeed-core-configs/lightspeed-stack.yaml:/app-root/lightspeed-stack.yaml:ro
-      - ../lightspeed-core-configs/rhdh-profile.py:/app-root/rhdh-profile.py:ro
-      - ../llama-stack-configs/config.yaml:/app-root/config.yaml:ro
-      - ../rag-content:/rag-content
+      - ../lightspeed-core-configs/lightspeed-stack.yaml:/app-root/lightspeed-stack.yaml:Z
+      - ../lightspeed-core-configs/rhdh-profile.py:/app-root/rhdh-profile.py:Z
+      - ../llama-stack-configs/config.yaml:/app-root/config.yaml:Z
+      - ../rag-content:/rag-content:Z
     env_file:
       - ../env/values.env
     healthcheck:
