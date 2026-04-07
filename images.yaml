@@ -18,4 +18,4 @@ lightspeed-core:
   image: quay.io/lightspeed-core/lightspeed-stack:dev-20260316-b2f54cf
 rag-content:
   llama_version: 0.4.3
-  image: quay.io/redhat-ai-dev/rag-content:release-1.9-lls-0.4.3-d0444cd9b57222ec9bdbaa36354337480a2ecf97
+  image: quay.io/redhat-ai-dev/rag-content:release-1.9-lls-0.4.3-37ef8109e65c1623b3ed8d2d091b15fa59e811f5
