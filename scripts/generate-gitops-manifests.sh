@@ -51,14 +51,6 @@ data:
 HEADER
   strip_license "${REPO_ROOT}/lightspeed-core-configs/lightspeed-stack.yaml" \
     | indent
-  cat << 'MCP_SECTION'
-    mcp_servers:
-      - name: mcp-integration-tools
-        provider_id: "model-context-protocol"
-        url: "http://{{ .Release.Name }}-backstage.{{ .Release.Namespace }}.svc.cluster.local:7007/api/mcp-actions/v1"
-        authorization_headers:
-          Authorization: "/app-root/lightspeed-stack/mcp-auth-token"
-MCP_SECTION
 } > "${OUTPUT_DIR}/lightspeed-stack-config.yaml"
 
 echo "Generating llama-stack ConfigMap..."
